@@ -1,0 +1,19 @@
+{
+  "name": "ctam-site",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "npx http-server . -p 8080 -c-1",
+    "audit:pa11y": "npx pa11y http://localhost:8080",
+    "audit:pa11y-ci": "npx pa11y-ci --config .pa11yci",
+    "audit:lighthouse": "npx lighthouse http://localhost:8080 --only-categories=accessibility --emulated-form-factor=mobile --output=json --output-path=./lighthouse-report.json",
+    "audit:accessibility": "npx http-server . -p 8080 -c-1 & sleep 2 && npx pa11y-ci --config .pa11yci && npx lighthouse http://localhost:8080 --only-categories=accessibility --emulated-form-factor=mobile --output=json --output-path=./lighthouse-report.json",
+    "test": "npm run audit:accessibility"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1",
+    "lighthouse": "^13.0.1",
+    "pa11y": "^9.0.1",
+    "pa11y-ci": "^4.0.1"
+  }
+}
